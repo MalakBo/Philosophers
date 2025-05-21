@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/05 17:14:24 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/21 21:35:58 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ typedef struct s_fork
     
 } t_fork;
 
-typedef struct s_philo
-{
-    pthread_t thread;
-    int     id;
-    int meals_eaten;
-    long last_meal_time;
-    t_fork *left;
-    t_fork *right;
-    t_data *data;
-} t_philo;
 
 typedef struct s_data
 {
@@ -47,6 +37,17 @@ typedef struct s_data
     time_t start_sim;
     time_t end_sim;
     t_fork *forks;
-    t_philo *philos;
+    // t_philo *philos;
 } t_data;
+
+typedef struct s_philo
+{
+    pthread_t thread;
+    int     id;
+    int meals_eaten;
+    long last_meal_time;
+    t_fork *left;
+    t_fork *right;
+    t_data *data;
+} t_philo;
 #endif
