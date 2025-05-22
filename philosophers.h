@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/22 15:55:46 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/22 21:41:38 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
     int time_to_die;
     int time_to_eat;
     int time_to_sleep;
+    int must_eat;
 } t_data;
 
 typedef struct s_philo

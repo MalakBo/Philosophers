@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:36:15 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/22 18:51:49 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/22 21:55:01 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ long ft_atoi(char *s)
 }
 int init_data(t_data *data,int argc,char **argv)
 {
-    
+    data->philos_number = ft_atoi(argv[1]);
+    data->time_to_die = ft_atoi(argv[2]);
+    data->time_to_eat = ft_atoi(argv[3]);
+    data->time_to_sleep = ft_atoi(argv[4]);
+    if(argc == 6)
+        data->must_eat = ft_atoi(argv[5]);
 }
 int is_digit(char *n)
 {
@@ -55,6 +60,7 @@ int is_digit(char *n)
 int main(int argc, char **argv)
 {
     int i = 1;
+    t_data data;
 
     if (argc == 5 || argc == 6)
     {
@@ -67,6 +73,8 @@ int main(int argc, char **argv)
             }
             i++;
         }
+        init_data(&data,argc,argv);
+        printf("%d %d %d %d %d",data.philos_number,data.time_to_die,data.time_to_eat,data.time_to_sleep,data.must_eat);
         write(1, "hakak a dk lmongol\n", 19);
     }
     else 
