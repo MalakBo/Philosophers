@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:36:15 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/24 17:59:58 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/25 21:45:33 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int main(int argc, char **argv)
     if(!valid_input(argc,argv))
         return(1);
     init_data(&data,argc,argv);
-    printf("%d %d %d %d %d\n", data.philos_number, data.time_to_die, data.time_to_eat, data.time_to_sleep, data.must_eat);
     write(1, "hakak a dk lmongol\n", 19);
     init_forks(forks,data.philos_number);
     init_philosophers(philos,&data,forks,&data.death);
