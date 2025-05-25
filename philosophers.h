@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/22 21:41:38 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/25 18:23:21 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <sys/time.h>
 #include <limits.h>
 
-
 typedef struct s_data
 {
     int philos_number;
@@ -27,6 +26,7 @@ typedef struct s_data
     int time_to_eat;
     int time_to_sleep;
     int must_eat;
+    pthread_mutex_t death;
 } t_data;
 
 typedef struct s_philo
@@ -35,6 +35,20 @@ typedef struct s_philo
     int     id;
     int meals_eaten;
     long last_meal_time;
+    pthread_mutex_t *left_fork;
+    pthread_mutex_t *right_fork;
     t_data *data;
+    pthread_mutex_t *death;
 } t_philo;
+
+long ft_atoi(char *s);
+int is_digit(char *n);
+void init_data(t_data *data,int argc,char **argv);
+void init_philosophers(t_philo *philo,t_data *data,pthread_mutex_t *fork,pthread_mutex_t *death);
+void init_forks(pthread_mutex_t *forks,int philo_number);
+size_t get_time(void);
+void create_threads(t_philo *philo,t_data *data);
+void eat_philo(t_philo *philo);
+void sleep_philo(t_philo *philo);
+void think(t_philo *philo);
 #endif
