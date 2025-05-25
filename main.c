@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:36:15 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/24 17:59:58 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/25 22:10:33 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 
     if(!valid_input(argc,argv))
         return(1);
+    data.start_time = get_time();
     init_data(&data,argc,argv);
     printf("%d %d %d %d %d\n", data.philos_number, data.time_to_die, data.time_to_eat, data.time_to_sleep, data.must_eat);
     write(1, "hakak a dk lmongol\n", 19);
