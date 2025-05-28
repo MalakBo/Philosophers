@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   sophy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:52:29 by mac               #+#    #+#             */
-/*   Updated: 2025/05/28 19:08:00 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/28 23:37:56 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 void eat_philo(t_philo *philo)
 {
+    if (philo->left_fork == philo->right_fork)
+{
+    pthread_mutex_lock(philo->right_fork);
+    printf("%ld %d has taken a fork\n", c_time(philo->data), philo->id);
+    usleep(philo->data->time_to_die * 1000);
+    pthread_mutex_unlock(philo->right_fork);
+    return;
+}
+
     pthread_mutex_lock(philo->right_fork);
     printf("%ld %d has taken the right fork\n",c_time(philo->data),philo->id);
     pthread_mutex_lock(philo->left_fork);
