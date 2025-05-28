@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:36:15 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/25 22:36:53 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/28 18:47:46 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     init_data(&data,argc,argv);
     write(1, "hakak a dk lmongol\n", 19);
     init_forks(forks,data.philos_number);
-    init_philosophers(philos,&data,forks,&data.death);
+    init_philosophers(philos,&data,forks,&data.dead);
     create_threads(philos,&data);
     return 0;
 }

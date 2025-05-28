@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/25 22:16:51 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/28 19:08:58 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 typedef struct s_data
 {
     int philos_number;
-    int time_to_die;
+    size_t time_to_die;
     int time_to_eat;
     int time_to_sleep;
     int must_eat;
-    size_t start_time; 
-    pthread_mutex_t death;
+    size_t start_time;
+    int dead_flag; 
+    pthread_mutex_t dead;
 } t_data;
 
 typedef struct s_philo
@@ -38,8 +39,8 @@ typedef struct s_philo
     long last_meal_time;
     pthread_mutex_t *left_fork;
     pthread_mutex_t *right_fork;
+    pthread_mutex_t meal;
     t_data *data;
-    pthread_mutex_t *death;
 } t_philo;
 
 long ft_atoi(char *s);
@@ -53,4 +54,5 @@ void eat_philo(t_philo *philo);
 void sleep_philo(t_philo *philo);
 void think(t_philo *philo);
 size_t c_time(t_data *data);
+void *monitor(void *arg);
 #endif
