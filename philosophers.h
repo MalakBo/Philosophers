@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/25 18:23:21 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/25 22:16:51 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
     int time_to_eat;
     int time_to_sleep;
     int must_eat;
+    size_t start_time; 
     pthread_mutex_t death;
 } t_data;
 
@@ -51,4 +52,5 @@ void create_threads(t_philo *philo,t_data *data);
 void eat_philo(t_philo *philo);
 void sleep_philo(t_philo *philo);
 void think(t_philo *philo);
+size_t c_time(t_data *data);
 #endif

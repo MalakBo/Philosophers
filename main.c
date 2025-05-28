@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:36:15 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/25 21:45:33 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/25 22:36:53 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int main(int argc, char **argv)
 
     if(!valid_input(argc,argv))
         return(1);
+    data.start_time = get_time();
     init_data(&data,argc,argv);
     write(1, "hakak a dk lmongol\n", 19);
     init_forks(forks,data.philos_number);

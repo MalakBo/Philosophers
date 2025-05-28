@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:24:31 by mac               #+#    #+#             */
-/*   Updated: 2025/05/23 22:45:55 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/25 22:15:39 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,8 @@ size_t get_time(void)
 
     gettimeofday(&time,NULL);
     return((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+size_t c_time(t_data *data)
+{
+    return(get_time()- data->start_time);
 }
