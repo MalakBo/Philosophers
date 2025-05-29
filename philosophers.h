@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/29 15:25:36 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 15:35:43 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_data
     size_t start_time;
     int dead_flag; 
     pthread_mutex_t dead;
-    pthread_mutex_t print;
     pthread_mutex_t print;
 } t_data;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 23:47:52 by mac               #+#    #+#             */
-/*   Updated: 2025/05/29 02:14:37 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 18:34:01 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void *create(void *arg)
             pthread_mutex_unlock(&philos->data->dead);
             break;
         }
+        pthread_mutex_unlock(&philos->data->dead);        
         eat_philo(philos);
         sleep_philo(philos);
         think(philos);
