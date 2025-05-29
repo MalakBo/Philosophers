@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 23:47:52 by mac               #+#    #+#             */
-/*   Updated: 2025/05/28 23:35:51 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 02:14:37 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ void create_threads(t_philo *philo,t_data *data)
 
     i = 0;
     pthread_t moni;
+    while (i < data->philos_number)
+    {
+        pthread_mutex_lock(&philo[i].meal);
+        philo[i].last_meal_time = get_time();
+        pthread_mutex_unlock(&philo[i].meal);
+        i++;
+    }
+    i = 0;
     while(i < data->philos_number)
     {
         pthread_create(&philo[i].thread,NULL,create,&philo[i]);

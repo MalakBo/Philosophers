@@ -3,34 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   sophy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:52:29 by mac               #+#    #+#             */
-/*   Updated: 2025/05/28 23:47:17 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/29 15:25:48 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 void eat_philo(t_philo *philo)
 {
+    if (philo->left_fork == philo->right_fork)
+{
     pthread_mutex_lock(philo->right_fork);
-    printf("%ld %d has taken the right fork\n",c_time(philo->data),philo->id);
+    printmsg(philo,"has taken the right fork");
+    usleep(philo->data->time_to_die * 1000);
+    pthread_mutex_unlock(philo->right_fork);
+    return;
+}
+
+    pthread_mutex_lock(philo->right_fork);
+    printmsg(philo,"has taken the right fork");
     pthread_mutex_lock(philo->left_fork);
-    printf("%ld %d has taken the left fork\n",c_time(philo->data),philo->id);
+    printmsg(philo,"has taken the left fork");
     philo->last_meal_time = get_time();
-    printf("%ld %d is eating\n",c_time(philo->data),philo->id);
+    printmsg(philo,"is eating");
     usleep(philo->data->time_to_eat * 1000);
     pthread_mutex_unlock(philo->right_fork);
     pthread_mutex_unlock(philo->left_fork);
 }
 void sleep_philo(t_philo *philo)
 {
-    printf("%ld %d is sleeping\n",c_time(philo->data),philo->id);
+    printmsg(philo,"is sleeping");
     usleep(philo->data->time_to_sleep * 1000);
 }
 void think(t_philo *philo)
 {
-    printf("%ld %d is thinking\n",c_time(philo->data),philo->id);
+    printmsg(philo,"is thinking");
 }
 void *monitor(void *arg)
 {
@@ -50,18 +59,19 @@ void *monitor(void *arg)
         {
             pthread_mutex_lock(&philo[i].meal);
             time = get_time() - philo[i].last_meal_time;
-            pthread_mutex_unlock(&philo[i].meal);
+            pthread_mutex_unlock(&philo[i].meal);            
+            pthread_mutex_lock(&data->dead);
             if(time > data->time_to_die && !data->dead_flag)
             {
-                pthread_mutex_lock(&data->dead);
+                printmsg(&philo[i], "died");
                 data->dead_flag = 1;
-                printf("%ld %d died\n",c_time(philo->data),philo[i].id);
                 pthread_mutex_unlock(&data->dead);
                 return NULL;             
             }
             pthread_mutex_unlock(&data->dead);
             i++;
         }
+        usleep(1000);
     }
     return NULL;
 }

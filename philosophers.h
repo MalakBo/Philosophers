@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/28 23:53:06 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/29 15:25:36 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_data
     size_t start_time;
     int dead_flag; 
     pthread_mutex_t dead;
+    pthread_mutex_t print;
     pthread_mutex_t print;
 } t_data;
 
@@ -56,4 +57,5 @@ void sleep_philo(t_philo *philo);
 void think(t_philo *philo);
 size_t c_time(t_data *data);
 void *monitor(void *arg);
+void printmsg(t_philo *philo,char *msg);
 #endif

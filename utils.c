@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:24:31 by mac               #+#    #+#             */
-/*   Updated: 2025/05/28 23:56:34 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/29 15:25:58 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,11 @@ size_t get_time(void)
 size_t c_time(t_data *data)
 {
     return(get_time()- data->start_time);
+}
+void printmsg(t_philo *philo,char *msg)
+{
+    pthread_mutex_lock(&philo->data->print);
+    if (!philo->data->dead_flag)
+        printf("%ld %d %s\n",c_time(philo->data),philo->id,msg);
+    pthread_mutex_unlock(&philo->data->print);
 }

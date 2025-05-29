@@ -6,7 +6,7 @@
 /*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:56:07 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/24 17:48:39 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 02:04:58 by mac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void init_data(t_data *data,int argc,char **argv)
         data->must_eat = ft_atoi(argv[5]);
     else
         data->must_eat = -1;
-    
+    pthread_mutex_init(&data->print,NULL);
 }
 void init_philosophers(t_philo *philo,t_data *data,pthread_mutex_t *fork,pthread_mutex_t *death)
 {
