@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:52:29 by mac               #+#    #+#             */
-/*   Updated: 2025/05/29 18:44:44 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/30 00:45:40 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void eat_philo(t_philo *philo)
 //     pthread_mutex_unlock(philo->right_fork);
 //     return;
 // }
-pthread_mutex_lock(philo->right_fork);
-printmsg(philo,"has taken the right fork");
-pthread_mutex_lock(philo->left_fork);
+    pthread_mutex_lock(philo->right_fork);
+    printmsg(philo,"has taken the right fork");
+    pthread_mutex_lock(philo->left_fork);
     printmsg(philo,"has taken the left fork");
     philo->last_meal_time = get_time();
     printmsg(philo,"is eating");
@@ -62,9 +62,11 @@ void *monitor(void *arg)
             pthread_mutex_lock(&data->dead);
             if(time > data->time_to_die && !data->dead_flag)
             {
-                printmsg(&philo[i], "died");
-                data->dead_flag = 1;
                 pthread_mutex_unlock(&data->dead);
+                printmsg(&philo[i], "died");
+                pthread_mutex_lock(&data->dead);
+                data->dead_flag = 1;
+                pthread_mutex_unlock(&data->dead);            
                 return NULL;             
             }
             pthread_mutex_unlock(&data->dead);

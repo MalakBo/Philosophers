@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 23:47:52 by mac               #+#    #+#             */
-/*   Updated: 2025/05/29 18:34:01 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/30 00:27:08 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void *create(void *arg)
     if (philos->data->philos_number == 1)
     {
         pthread_mutex_lock(philos->right_fork);
-        printf("%ld %d has taken a fork\n", c_time(philos->data), philos->id);
+        printmsg(philos,"has taken the right fork");
         usleep(philos->data->time_to_die * 1000);
-        printf("%ld %d died\n", c_time(philos->data), philos->id);
+        printmsg(philos,"died");
         pthread_mutex_unlock(philos->right_fork);
         return NULL;
     }
@@ -29,16 +29,19 @@ void *create(void *arg)
         usleep(100);
     while(1)
     {
+        pthread_mutex_lock(&philos->data->philo_mutex);
         pthread_mutex_lock(&philos->data->dead);
         if(philos->data->dead_flag)
         {
             pthread_mutex_unlock(&philos->data->dead);
+            pthread_mutex_unlock(&philos->data->philo_mutex);
             break;
         }
         pthread_mutex_unlock(&philos->data->dead);        
         eat_philo(philos);
         sleep_philo(philos);
         think(philos);
+        pthread_mutex_unlock(&philos->data->philo_mutex);
     }
     return NULL;
 }
@@ -51,22 +54,29 @@ void create_threads(t_philo *philo,t_data *data)
     pthread_t moni;
     while (i < data->philos_number)
     {
+        pthread_mutex_lock(&philo[i].data->philo_mutex);
         pthread_mutex_lock(&philo[i].meal);
         philo[i].last_meal_time = get_time();
         pthread_mutex_unlock(&philo[i].meal);
+        pthread_mutex_unlock(&philo[i].data->philo_mutex);
         i++;
     }
     i = 0;
     while(i < data->philos_number)
     {
+        pthread_mutex_lock(&philo[i].data->philo_mutex);
         pthread_create(&philo[i].thread,NULL,create,&philo[i]);
+        pthread_mutex_unlock(&philo[i].data->philo_mutex);
         i++;
     }
     pthread_create(&moni,NULL,&monitor,philo);
     i = 0;
+    
     while(i < data->philos_number)
     {
+        pthread_mutex_lock(&philo[i].data->philo_mutex);
         pthread_join(philo[i].thread,NULL);
+        pthread_mutex_unlock(&philo[i].data->philo_mutex);
         i++;
     }
     pthread_join(moni,NULL);

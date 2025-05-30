@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:24:31 by mac               #+#    #+#             */
-/*   Updated: 2025/05/29 15:25:58 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 22:32:13 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int is_digit(char *n)
     }
     return 1;
 }
+
 long ft_atoi(char *s)
 {
     int i;
@@ -47,6 +48,7 @@ long ft_atoi(char *s)
     }
     return (r * sign);
 }
+
 size_t get_time(void)
 {
     struct timeval time;
@@ -54,14 +56,18 @@ size_t get_time(void)
     gettimeofday(&time,NULL);
     return((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
+
 size_t c_time(t_data *data)
 {
     return(get_time()- data->start_time);
 }
+
 void printmsg(t_philo *philo,char *msg)
 {
     pthread_mutex_lock(&philo->data->print);
+    pthread_mutex_lock(&philo->data->dead);
     if (!philo->data->dead_flag)
         printf("%ld %d %s\n",c_time(philo->data),philo->id,msg);
+    pthread_mutex_unlock(&philo->data->dead);
     pthread_mutex_unlock(&philo->data->print);
 }

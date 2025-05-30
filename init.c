@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mac <mac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:56:07 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/29 02:04:58 by mac              ###   ########.fr       */
+/*   Updated: 2025/05/29 21:44:03 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void init_philosophers(t_philo *philo,t_data *data,pthread_mutex_t *fork,pthread
         philo[i].data = data;
         philo[i].last_meal_time = 0;
         philo[i].right_fork = &fork[i];
-        philo[i].left_fork = &fork[i + 1];
+        philo[i].left_fork = &fork[(i + 1) % philo->data->philos_number];
         i++;
     }
 }
