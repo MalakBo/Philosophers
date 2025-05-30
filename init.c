@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:56:07 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/29 21:44:03 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/30 22:35:57 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void init_data(t_data *data,int argc,char **argv)
     else
         data->must_eat = -1;
     pthread_mutex_init(&data->print,NULL);
+    pthread_mutex_init(&data->dead, NULL);
 }
 void init_philosophers(t_philo *philo,t_data *data,pthread_mutex_t *fork,pthread_mutex_t *death)
 {
@@ -38,6 +39,8 @@ void init_philosophers(t_philo *philo,t_data *data,pthread_mutex_t *fork,pthread
         philo[i].last_meal_time = 0;
         philo[i].right_fork = &fork[i];
         philo[i].left_fork = &fork[(i + 1) % philo->data->philos_number];
+        philo[i].data = data;
+        pthread_mutex_init(&philo[i].meal, NULL);
         i++;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 23:47:52 by mac               #+#    #+#             */
-/*   Updated: 2025/05/30 00:27:08 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/30 22:27:17 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void *create(void *arg)
     t_philo *philos;
 
     philos = (t_philo *)arg;
+    philos->last_meal_time =  philos->data->start_time;
     if (philos->data->philos_number == 1)
     {
         pthread_mutex_lock(philos->right_fork);
@@ -27,21 +28,12 @@ void *create(void *arg)
     }
     if(philos->id % 2 != 0)
         usleep(100);
+
     while(1)
     {
-        pthread_mutex_lock(&philos->data->philo_mutex);
-        pthread_mutex_lock(&philos->data->dead);
-        if(philos->data->dead_flag)
-        {
-            pthread_mutex_unlock(&philos->data->dead);
-            pthread_mutex_unlock(&philos->data->philo_mutex);
-            break;
-        }
-        pthread_mutex_unlock(&philos->data->dead);        
         eat_philo(philos);
         sleep_philo(philos);
         think(philos);
-        pthread_mutex_unlock(&philos->data->philo_mutex);
     }
     return NULL;
 }
@@ -52,21 +44,11 @@ void create_threads(t_philo *philo,t_data *data)
 
     i = 0;
     pthread_t moni;
-    while (i < data->philos_number)
-    {
-        pthread_mutex_lock(&philo[i].data->philo_mutex);
-        pthread_mutex_lock(&philo[i].meal);
-        philo[i].last_meal_time = get_time();
-        pthread_mutex_unlock(&philo[i].meal);
-        pthread_mutex_unlock(&philo[i].data->philo_mutex);
-        i++;
-    }
+    data->start_time = get_time();
     i = 0;
     while(i < data->philos_number)
     {
-        pthread_mutex_lock(&philo[i].data->philo_mutex);
         pthread_create(&philo[i].thread,NULL,create,&philo[i]);
-        pthread_mutex_unlock(&philo[i].data->philo_mutex);
         i++;
     }
     pthread_create(&moni,NULL,&monitor,philo);
@@ -74,9 +56,7 @@ void create_threads(t_philo *philo,t_data *data)
     
     while(i < data->philos_number)
     {
-        pthread_mutex_lock(&philo[i].data->philo_mutex);
         pthread_join(philo[i].thread,NULL);
-        pthread_mutex_unlock(&philo[i].data->philo_mutex);
         i++;
     }
     pthread_join(moni,NULL);

@@ -6,7 +6,7 @@
 /*   By: mbouyi <mbouyi@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 16:30:25 by mbouyi            #+#    #+#             */
-/*   Updated: 2025/05/29 23:58:56 by mbouyi           ###   ########.fr       */
+/*   Updated: 2025/05/30 22:42:39 by mbouyi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 #include <pthread.h>
 #include <sys/time.h>
 #include <limits.h>
-
+#include <string.h>
 typedef struct s_data
 {
+    pthread_mutex_t *forks;
     int philos_number;
     size_t time_to_die;
     int time_to_eat;
@@ -30,8 +31,6 @@ typedef struct s_data
     int dead_flag; 
     pthread_mutex_t dead;
     pthread_mutex_t print;
-    pthread_mutex_t philo_mutex;
-    
 } t_data;
 
 typedef struct s_philo
